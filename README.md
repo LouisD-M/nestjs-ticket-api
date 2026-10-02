@@ -1,45 +1,43 @@
-# Installer les dépendances
+# NestJS Ticket API
 
-Avec Node.js 20 ou supérieur, depuis le dossier `ticket-api` :
+Petite API REST de gestion de tickets développée avec NestJS.
 
-```sh
+Le projet permet de manipuler des tickets via une API REST, avec persistance PostgreSQL, validation des données, documentation Swagger et exécution avec Docker.
+
+## Stack
+
+- NestJS
+- TypeScript
+- TypeORM
+- PostgreSQL
+- Docker / Docker Compose
+- Swagger
+- class-validator
+
+## Fonctionnalités
+
+- création d’un ticket
+- liste des tickets
+- récupération d’un ticket par id
+- modification partielle d’un ticket
+- soft delete
+- validation via DTO
+- gestion des erreurs 404
+- documentation Swagger
+
+## Endpoints
+
+| Méthode | Endpoint | Description |
+|---|---|---|
+| POST | `/tickets` | Créer un ticket |
+| GET | `/tickets` | Récupérer tous les tickets |
+| GET | `/tickets/:id` | Récupérer un ticket |
+| PATCH | `/tickets/:id` | Modifier un ticket |
+| DELETE | `/tickets/:id` | Soft delete d’un ticket |
+
+## Installation
+
+Avec Node.js 20 ou supérieur :
+
+```bash
 npm install
-```
-
-Le fichier `.env` est fourni localement. Après un clone, copier `.env.example` vers `.env`.
-
-# Lancer PostgreSQL
-
-Installer et démarrer Docker Desktop, puis :
-
-```sh
-docker compose up -d --wait
-```
-
-# Lancer NestJS
-
-```sh
-npm run start:dev
-```
-
-Le serveur écoute sur `http://localhost:3000`. Les routes renvoient une erreur 501 tant que leurs TODO ne sont pas complétés. Le schéma est créé automatiquement au lancement pour cet exercice local.
-
-# Lancer le seed
-
-PostgreSQL doit être démarré ; NestJS n’a pas besoin de tourner :
-
-```sh
-npm run seed
-```
-
-La commande crée le schéma et ajoute cinq tickets si la table est vide. Elle conserve les données existantes.
-
-# Vérifier PostgreSQL
-
-```sh
-docker compose ps
-docker compose exec postgres pg_isready -U postgres -d ticket_db
-docker compose exec postgres psql -U postgres -d ticket_db -c "SELECT id, title, status, priority FROM tickets;"
-```
-
-La dernière commande s’utilise après le seed.
